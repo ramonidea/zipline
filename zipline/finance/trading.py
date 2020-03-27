@@ -46,7 +46,8 @@ class SimulationParameters(object):
             "Period start falls after the last known trading day."
         assert end_session >= trading_calendar.first_trading_session, \
             "Period end falls before the first known trading day."
-
+        start_session = pd.Timestamp(start_session).tz_localize(tz='US/Central')
+        end_session = pd.Timestamp(end_session).tz_localize(tz='US/Central')
         # chop off any minutes or hours on the given start and end dates,
         # as we only support session labels here (and we represent session
         # labels as midnight UTC).
